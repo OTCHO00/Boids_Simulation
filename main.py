@@ -1,12 +1,18 @@
 import pygame, sys
-from config import HAUTEUR, LARGEUR, FPS
 from boid import Boid
+from flock import Flock
+from config import HAUTEUR, LARGEUR, FPS
 
 fenetre = pygame.display.set_mode((LARGEUR, HAUTEUR))
 pygame.display.set_caption("Simulation de nuée d'oiseau")
-boid = Boid()
+flock = Flock()
 pygame.display.flip()
 clock = pygame.time.Clock()
+
+    
+for _ in range(0, 50):
+    boid = Boid()
+    flock.ajouter_boids(boid)
 
 while True:
     for event in pygame.event.get():
@@ -14,10 +20,13 @@ while True:
             pygame.quit()
             sys.exit()
 
-    boid.update_position()
-    boid.bordure()
+    flock.updates_boids()
+    
+    for boid in flock.boids:
+        boid.bordure()
+
     fenetre.fill((0, 0, 0))
-    boid.draw(fenetre)
+    flock.draw(fenetre)
     pygame.display.flip()
     clock.tick(FPS)
     
