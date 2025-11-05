@@ -19,11 +19,14 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-
-    flock.updates_boids()
     
     for boid in flock.boids:
-        boid.bordure()
+        boid.wraparound()
+        boid.calculer_separation(flock.boids)
+        boid.calculer_alignement(flock.boids)
+        boid.calculer_cohesion(flock.boids)
+
+    flock.updates_boids()
 
     fenetre.fill((0, 0, 0))
     flock.draw(fenetre)
