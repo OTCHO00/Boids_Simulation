@@ -6,11 +6,9 @@ from config import HAUTEUR, LARGEUR, FPS
 fenetre = pygame.display.set_mode((LARGEUR, HAUTEUR))
 pygame.display.set_caption("Simulation de nuée d'oiseau")
 flock = Flock()
-pygame.display.flip()
 clock = pygame.time.Clock()
 
-    
-for _ in range(0, 50):
+for _ in range(0, 150):
     boid = Boid()
     flock.ajouter_boids(boid)
 

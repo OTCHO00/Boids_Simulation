@@ -1,5 +1,5 @@
 import random, pygame, math
-from config import HAUTEUR, LARGEUR, VITESSE_INIT, VITESSE_MIN, FORCE_MAX, VITESSE_MAX, VERT, POINTE_BOIDS, BASE_1_BOIDS, BASE_2_BOIDS, RAYON_ALIGNEMENT, RAYON_COHESION, RAYON_SEPARATION, POIDS_ALIGNEMENT, POIDS_COHESION, POIDS_SEPARATION
+from config import HAUTEUR, LARGEUR, VITESSE_INIT, VITESSE_MIN, FORCE_MAX, VITESSE_MAX, COULEURS, POINTE_BOIDS, BASE_1_BOIDS, BASE_2_BOIDS, RAYON_ALIGNEMENT, RAYON_COHESION, RAYON_SEPARATION, POIDS_ALIGNEMENT, POIDS_COHESION, POIDS_SEPARATION
 
 class Boid:
     def __init__(self):
@@ -26,9 +26,11 @@ class Boid:
 
         if nb_voisins > 0:
             moyenne = somme / nb_voisins
-            force = moyenne.normalize() * self.max_force * POIDS_SEPARATION
-            
-            self.acceleration += force
+
+            if moyenne.length() > 0:
+
+                force = moyenne.normalize() * self.max_force * POIDS_SEPARATION    
+                self.acceleration += force
 
     def calculer_alignement(self, voisins):
 
@@ -66,7 +68,7 @@ class Boid:
             force_cohesion = position_moyenne - self.position
             
             if force_cohesion.length() > 0:
-                
+            
                 force_cohesion = force_cohesion.normalize() * self.max_force * POIDS_COHESION
                 self.acceleration += force_cohesion
 
@@ -103,7 +105,7 @@ class Boid:
         x_base_2 = x + self.position.x
         y_base_2 = y + self.position.y
 
-        pygame.draw.polygon(fenetre, VERT, [(x_pointe, y_pointe), (x_base_1, y_base_1), (x_base_2, y_base_2)], width=2)
+        pygame.draw.polygon(fenetre, COULEURS, [(x_pointe, y_pointe), (x_base_1, y_base_1), (x_base_2, y_base_2)], width=2)
 
     def wraparound(self):
         if self.position.x > LARGEUR:
