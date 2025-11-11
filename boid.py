@@ -2,8 +2,8 @@ import random, pygame, math
 from config import HAUTEUR, LARGEUR, VITESSE_INIT, VITESSE_MIN, FORCE_MAX, VITESSE_MAX, COULEURS, POINTE_BOIDS, BASE_1_BOIDS, BASE_2_BOIDS, RAYON_ALIGNEMENT, RAYON_COHESION, RAYON_SEPARATION, POIDS_ALIGNEMENT, POIDS_COHESION, POIDS_SEPARATION
 
 class Boid:
-    def __init__(self):
-        self.position = pygame.math.Vector2(random.uniform(0, LARGEUR), random.uniform(0, HAUTEUR))
+    def __init__(self, position):
+        self.position = position
         self.angle = random.uniform(0, 2 * math.pi)
         self.vitesse = pygame.math.Vector2(math.cos(self.angle) * VITESSE_INIT, math.sin(self.angle) * VITESSE_INIT)
         self.acceleration = pygame.math.Vector2(0, 0)

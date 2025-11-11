@@ -8,17 +8,20 @@ pygame.display.set_caption("Simulation de nuée d'oiseau")
 flock = Flock()
 clock = pygame.time.Clock()
 
-for _ in range(0, 150):
-    boid = Boid()
-    flock.ajouter_boids(boid)
-
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-    
+
+        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+
+            mx, my = pygame.mouse.get_pos()
+            boid = Boid(pygame.Vector2(mx, my))
+            flock.ajouter_boids(boid)
+
     for boid in flock.boids:
+
         boid.wraparound()
         boid.calculer_separation(flock.boids)
         boid.calculer_alignement(flock.boids)
